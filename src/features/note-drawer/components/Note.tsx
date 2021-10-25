@@ -7,7 +7,7 @@ import diffInMs from 'date-fns/differenceInMilliseconds'
 import { Routes } from '@/router/routes'
 import { Note as INote } from '@/utils/localStorage'
 
-export const Note: FC<INote> = ({ title, id, updatedAt }) => {
+export const Note: FC<INote> = ({ title, id, updatedAt, category }) => {
   const loc = useLocation()
   const pathMatch = matchPath<{ id?: string }>(loc.pathname, { path: Routes.WriteNote })
   const activeId = pathMatch?.params.id
@@ -23,7 +23,7 @@ export const Note: FC<INote> = ({ title, id, updatedAt }) => {
             <PostTitle>{title}</PostTitle>
           </Grid>
           <Grid item xs={12}>
-            <Category>#work</Category>
+            <Category>{category}</Category>
             <Description>Description</Description>
           </Grid>
         </Grid>
@@ -47,15 +47,15 @@ interface ContainerProps {
 }
 const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isActive' })<ContainerProps>`
   padding: 10px;
-  margin: 5px 0;
+  margin-top: 10px;
   ${({ isActive, theme: { palette } }) =>
     isActive
       ? `
-  background-color: ${palette.background.default};
-  border-left: 1px solid red;
+  background-color: ${colors.grey[800]};
+  border-left: 2px solid ${palette.primary.main};
   `
       : `
-  border-left: 1px solid transparent;`}
+  border-left: 2px solid transparent;`}
 `
 
 const PostTitle = styled('h3')`

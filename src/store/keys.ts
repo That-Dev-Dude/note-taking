@@ -1,3 +1,5 @@
 export enum RecoilKeys {
-  Notes = 'notes'
+  Notes = 'notes',
+  NotesLocalStorageSelector = 'notes-local-storage-selector',
+  NotesArray = 'notes-array'
 }

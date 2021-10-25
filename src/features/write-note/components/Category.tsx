@@ -6,29 +6,32 @@ import { useRecoilValue } from 'recoil'
 import { notesAtom } from '@/store'
 import { EditNote } from '@/features/write-note/providers/EditNote'
 
-export const NoteTitle: FC = () => {
+export const NoteCategory: FC = () => {
   const notes = useRecoilValue(notesAtom)
-  const { updateTitle, id } = useContext(EditNote)
+  const { updateCategory, id } = useContext(EditNote)
   const note = notes[id]
-  const [title, localTitleBind, { setValue }] = useInput(note.title)
+  const [localCategory, localCategoryBind, { setValue }] = useInput(note.category)
 
   useEffect(() => {
-    setValue(note.title)
+    setValue(note.category)
   }, [note, setValue])
 
   useEffect(() => {
-    updateTitle(title)
-  }, [title, updateTitle])
+    updateCategory(localCategory)
+  }, [localCategory, updateCategory])
 
-  return <TitleInput {...localTitleBind} />
+  return (
+    <div>
+      <TitleInput {...localCategoryBind} />
+    </div>
+  )
 }
 
 const TitleInput = styled('input')`
-  width: 100%;
   outline: none;
   border: none;
   padding: 10px;
-  font-size: 2em;
+  font-size: 1.4em;
   background-color: ${({ theme: { palette } }) => palette.background.default};
-  color: ${({ theme: { palette } }) => palette.text.primary};
+  color: ${({ theme: { palette } }) => palette.primary.main};
 `

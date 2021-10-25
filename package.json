@@ -21,6 +21,9 @@
     "currency-flags": "^3.2.1",
     "currency-symbol-map": "^5.0.1",
     "date-fns": "^2.25.0",
+    "deep-eql": "^4.0.0",
+    "fuse.js": "^6.4.6",
+    "lodash": "^4.17.21",
     "lodash.capitalize": "^4.2.1",
     "numeral": "^2.0.6",
     "react": "^17.0.0",
@@ -35,6 +38,7 @@
     "vizzu": "^0.3.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.176",
     "@types/lodash.capitalize": "^4.2.6",
     "@types/node": "^14.14.31",
     "@types/numeral": "^2.0.2",

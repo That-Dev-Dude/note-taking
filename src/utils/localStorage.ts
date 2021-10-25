@@ -12,42 +12,29 @@ export interface Note extends NoteCreationPayload {
   title: string
   content: string
   tags: string[]
+  category: string
 }
 
 export const getAllNotes = () => {
   let allNotesString = localStorage.getItem(notesKey)
-  if (!allNotesString) allNotesString = '[]'
-  const allNotes = JSON.parse(allNotesString) as Note[]
-  console.log('allNotes', allNotes)
+  if (!allNotesString) allNotesString = '{}'
+  const allNotes = JSON.parse(allNotesString) as Record<string, Note>
   return allNotes
 }
 
-export const writeNoteToLocalStorage = (): string => {
-  const allNotes = getAllNotes()
-  const newNote: Note = {
-    id: uuid(),
-    createdAt: new Date().toLocaleDateString(),
-    updatedAt: new Date().toLocaleDateString(),
-    title: 'A lovely note',
-    content: '',
-    tags: []
-  }
-  localStorage.setItem(notesKey, JSON.stringify([...allNotes, newNote]))
-  return newNote.id
-}
+export const createNote = (): Note => ({
+  id: uuid(),
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  title: 'A lovely note',
+  content: '',
+  category: '#',
+  tags: []
+})
 
 export const updateNote = (note: Note) => {
-  const { id: targetNoteId } = note
-  const allNotes = getAllNotes()
-  const targetedUpdateNoteIndex = allNotes.findIndex(({ id: existingId }) => existingId === targetNoteId)
-  if (targetedUpdateNoteIndex < 0) throw new Error('[Fatal] Cannot find note ' + targetNoteId)
-  note.createdAt = new Date().toLocaleDateString()
-  note.updatedAt = new Date().toLocaleDateString()
-  allNotes[targetedUpdateNoteIndex] = note
-  localStorage.setItem(notesKey, JSON.stringify(allNotes))
-}
-
-export const getNote = (id?: string): Note | undefined => {
-  const allNotes = getAllNotes()
-  return allNotes.find(({ id: existingId }) => existingId === id)
+  const mutableNote = { ...note }
+  mutableNote.createdAt = new Date().toISOString()
+  mutableNote.updatedAt = new Date().toISOString()
+  return mutableNote
 }
