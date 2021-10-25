@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React, { FC } from 'react'
 
-import { NoteTitle, NoteCategory, DeleteNote } from './components'
+import { NoteTitle, NoteCategory, DeleteNote, NoteContent } from './components'
 
 export const WriteNote: FC = () => {
   return (
@@ -12,7 +12,12 @@ export const WriteNote: FC = () => {
       <Grid item xs={1}>
         <DeleteNote />
       </Grid>
-      <NoteCategory />
+      <Grid item xs={12}>
+        <NoteCategory />
+      </Grid>
+      <Grid item xs={12}>
+        <NoteContent />
+      </Grid>
     </Grid>
   )
 }

@@ -6,33 +6,33 @@ import { useRecoilValue } from 'recoil'
 import { notesAtom } from '@/store'
 import { EditNote } from '@/features/write-note/providers/EditNote'
 
-export const NoteCategory: FC = () => {
+export const NoteContent: FC = () => {
   const notes = useRecoilValue(notesAtom)
-  const { updateCategory, id } = useContext(EditNote)
+  const { updateContent, id } = useContext(EditNote)
   const note = notes[id]
-  const [localCategory, localCategoryBind, { setValue }] = useInput(note.category)
+  const [localContent, localContentBind, { setValue }] = useInput(note.content)
 
   useEffect(() => {
-    setValue(note.category)
+    setValue(note.content)
   }, [note, setValue])
 
   useEffect(() => {
-    updateCategory(localCategory)
-  }, [localCategory, updateCategory])
+    updateContent(localContent)
+  }, [localContent, updateContent])
 
   return (
     <div>
-      <CategoryInput {...localCategoryBind} />
+      <ContentInput {...localContentBind} />
     </div>
   )
 }
 
-const CategoryInput = styled('input')`
-  width: 100%;
+const ContentInput = styled('textarea')`
+  width: 95%;
   outline: none;
   border: none;
   padding: 10px;
   font-size: 1.4em;
   background-color: ${({ theme: { palette } }) => palette.background.default};
-  color: ${({ theme: { palette } }) => palette.primary.main};
+  color: ${({ theme: { palette } }) => palette.text.primary};
 `

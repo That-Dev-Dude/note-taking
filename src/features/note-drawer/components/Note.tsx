@@ -7,14 +7,14 @@ import diffInMs from 'date-fns/differenceInMilliseconds'
 import { Routes } from '@/router/routes'
 import { Note as INote } from '@/utils/localStorage'
 
-export const Note: FC<INote> = ({ title, id, updatedAt, category }) => {
-  const loc = useLocation()
-  const pathMatch = matchPath<{ id?: string }>(loc.pathname, { path: Routes.WriteNote })
+export const Note: FC<INote> = ({ title, id, updatedAt, category, content }) => {
+  const { pathname } = useLocation()
+  const pathMatch = matchPath<{ id?: string }>(pathname, { path: Routes.WriteNote })
   const activeId = pathMatch?.params.id
 
   return (
-    <Link to={`${Routes.WriteNoteBase}/${id}`}>
-      <Container container item xs={12} isActive={id === activeId} spacing={0}>
+    <Link to={`${Routes.WriteNoteBase}/${id}`} style={{ width: '100%' }}>
+      <Container container isActive={id === activeId} spacing={0} justifyContent='flex-start'>
         <Grid item xs={3}>
           <div>{getDate(updatedAt)}</div>
         </Grid>
@@ -24,7 +24,10 @@ export const Note: FC<INote> = ({ title, id, updatedAt, category }) => {
           </Grid>
           <Grid item xs={12}>
             <Category>{category}</Category>
-            <Description>Description</Description>
+            <Description>
+              {content.substr(0, 40)}
+              {content.length >= 40 ? '..' : ''}
+            </Description>
           </Grid>
         </Grid>
       </Container>
@@ -46,8 +49,8 @@ interface ContainerProps {
   isActive: boolean
 }
 const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isActive' })<ContainerProps>`
-  padding: 10px;
-  margin-top: 10px;
+  padding: 5px 8px 20px 8px;
+  margin-top: 5px;
   ${({ isActive, theme: { palette } }) =>
     isActive
       ? `
@@ -69,4 +72,6 @@ const Category = styled('p')`
 const Description = styled('p')`
   margin: 0;
   color: ${colors.grey[400]};
+  font-size: 0.9em;
+  height: 30px;
 `

@@ -17,18 +17,12 @@ export const NoteDrawer: FC = () => {
   )
   const searchedNotes = handleSearchResults(NotesSearch, searchTerm, allNotes)
   return (
-    <Grid
-      container
-      spacing={0}
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 5px' }}
-    >
+    <Grid container spacing={0} sx={{ padding: '0 5px' }}>
       <NoteSearch searchTermBind={searchTermBind} />
-      {/* TODO: Make scroll-able */}
-      <Grid container spacing={0} sx={{ transition: 'all 0.2s' }}>
-        {searchedNotes.map(note => (
-          <Note key={note.id} {...note} />
-        ))}
-      </Grid>
+      {/* TODO: Make scroll-able and explore transitions */}
+      {searchedNotes.map(note => (
+        <Note key={note.id} {...note} />
+      ))}
     </Grid>
   )
 }
