@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useContext } from 'react'
-import { styled, useTheme } from '@mui/material'
+import { colors, styled, useTheme, Theme } from '@mui/material'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-balloon'
 import { useRecoilValue } from 'recoil'
@@ -11,13 +11,11 @@ const NoteContent: FC = () => {
   const notes = useRecoilValue(notesAtom)
   const { updateContent, id } = useContext(EditNote)
   const note = notes[id]
-  const {
-    palette: { primary }
-  } = useTheme()
+  const theme = useTheme()
 
   useEffect(() => {
-    injectEditorStyle(primary.main)
-  }, [primary])
+    injectEditorStyle(theme)
+  }, [theme])
 
   return (
     <EditorWrapper>
@@ -46,11 +44,17 @@ const NoteContent: FC = () => {
   )
 }
 
-const injectEditorStyle = (backgroundColor: string) => {
+const injectEditorStyle = ({ palette }: Theme) => {
   const style = `
     :root {
-    --ck-color-toolbar-background: ${backgroundColor} !important;
+    --ck-color-toolbar-background: ${palette.primary.main} !important;
     --ck-color-text: white !important;
+    --ck-color-button-default-background: ${palette.primary.main} !important;
+    --ck-color-button-default-hover-background: ${colors.grey[600]} !important;
+    --ck-color-button-on-background: ${colors.grey[900]} !important;
+    --ck-color-button-on-hover-background: ${colors.grey[600]} !important;
+    --ck-color-button-on-active-background: ${palette.background.default} !important;
+    --ck-color-base-active: ${palette.background.default} !important;
     }
   `
   const styleTag = document.createElement('style')
