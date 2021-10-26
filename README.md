@@ -1,6 +1,6 @@
 # Note Taking
 
-App for taking notes
+App for taking notes, heavily influenced by [Bear](https://bear.app/).
 
 ## Demo
 
@@ -23,7 +23,24 @@ yarn dev
 
 ## Checklist
 
-- [x] User can enter up to 9 digits to represent the amount to convert in a source input field
+- [x] User can create a note
+- [x] User can edit a note
+- [x] User can delete a note
+- [x] When closing the browser window the notes will be stored and when the User returns, the data will be retrieved
+
+### Bonus
+
+- [x] User can create and edit a note in Markdown format. On save it will convert Markdown to HTML
+- [x] User can see the date when they created the note
+- [ ] User can drag and drop the notes to change the order of them ( They are sorted by last updated, dragging and dropping didn't fit here )
+
+## Overview
+
+- Notes are stored in Local Storage
+- Notes are sorted by last updated at
+- Recoil wraps LS to give reactivity
+- Create a new note with the button to the right of the search
+- Use of a tagging system similar to [Bear's](https://blog.bear.app/2017/08/bear-tips-organize-notes-with-tags-and-infinite-nested-tags/). This is the `#` in blue below the title.
 
 ## Developing
 
@@ -43,6 +60,12 @@ They take a considerable amount of time to do correctly, and it wasn't worth it 
 
 - [@mui/material](https://mui.com/getting-started/usage/) ( Material UI )
 - [date-fns](https://date-fns.org/docs/Getting-Started)
+- [CKEditor](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/react.html)
+- [@caldwell619/ms](https://www.npmjs.com/package/@caldwell619/ms)
+- [fuse.js](https://www.npmjs.com/package/fuse.js)
+- [lodash.debounce](https://lodash.com/docs/4.17.15#debounce)
+- [recoil](https://recoiljs.org/)
+- [uuid](https://www.npmjs.com/package/uuid)
 
 ## Tooling Used
 
@@ -56,4 +79,3 @@ They take a considerable amount of time to do correctly, and it wasn't worth it 
 Styling was done with [MUI v5](https://mui.com/getting-started/usage/). There have been significant changes to this library, and overriding base styles has never been easier.
 
 Some benefits of using v5 have been documented on [their blog](https://mui.com/blog/mui-core-v5/).
-
