@@ -13,6 +13,9 @@
   "dependencies": {
     "@caldwell619/ms": "^0.0.3",
     "@caldwell619/react-hooks": "^0.0.7",
+    "@ckeditor/ckeditor5-build-balloon": "^30.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^30.0.0",
+    "@ckeditor/ckeditor5-react": "^3.0.3",
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@mui/icons-material": "^5.0.1",

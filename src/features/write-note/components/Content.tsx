@@ -1,6 +1,7 @@
-import React, { FC, useContext, useEffect } from 'react'
-import { styled } from '@mui/material'
-import { useInput } from '@caldwell619/react-hooks'
+import React, { FC, useEffect, useContext } from 'react'
+import { styled, useTheme } from '@mui/material'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-balloon'
 import { useRecoilValue } from 'recoil'
 
 import { notesAtom } from '@/store'
@@ -10,29 +11,51 @@ export const NoteContent: FC = () => {
   const notes = useRecoilValue(notesAtom)
   const { updateContent, id } = useContext(EditNote)
   const note = notes[id]
-  const [localContent, localContentBind, { setValue }] = useInput(note.content)
+  const {
+    palette: { primary }
+  } = useTheme()
 
   useEffect(() => {
-    setValue(note.content)
-  }, [note, setValue])
-
-  useEffect(() => {
-    updateContent(localContent)
-  }, [localContent, updateContent])
+    injectEditorStyle(primary.main)
+  }, [primary])
 
   return (
-    <div>
-      <ContentInput {...localContentBind} />
-    </div>
+    <EditorWrapper>
+      {/* This is.. odd. The way the editor library works forces this behavior. 
+      Otherwise all editors will bind themselves to the first note to mount */}
+      {Object.values(notes).map(allNote =>
+        note.id === allNote.id ? (
+          <CKEditor
+            key={allNote.id}
+            id={allNote.id}
+            editor={ClassicEditor}
+            config={{
+              //@ts-ignore
+              placeholder: 'Write something profound. No pressure.'
+            }}
+            data={allNote.content}
+            onChange={(_, editor) => {
+              console.log('running')
+              const data = editor.getData()
+              updateContent(data)
+            }}
+          />
+        ) : null
+      )}
+    </EditorWrapper>
   )
 }
 
-const ContentInput = styled('textarea')`
-  width: 95%;
-  outline: none;
-  border: none;
-  padding: 10px;
-  font-size: 1.4em;
-  background-color: ${({ theme: { palette } }) => palette.background.default};
-  color: ${({ theme: { palette } }) => palette.text.primary};
-`
+const injectEditorStyle = (backgroundColor: string) => {
+  const style = `
+    :root {
+    --ck-color-toolbar-background: ${backgroundColor} !important;
+    --ck-color-text: white !important;
+    }
+  `
+  const styleTag = document.createElement('style')
+  styleTag.innerHTML = style
+  document.head.appendChild(styleTag)
+}
+
+const EditorWrapper = styled('div')``

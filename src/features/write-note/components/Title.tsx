@@ -10,15 +10,14 @@ export const NoteTitle: FC = () => {
   const notes = useRecoilValue(notesAtom)
   const { updateTitle, id } = useContext(EditNote)
   const note = notes[id]
-  const [title, localTitleBind, { setValue }] = useInput(note.title)
+  const {
+    1: localTitleBind,
+    2: { setValue }
+  } = useInput(note.title, updateTitle)
 
   useEffect(() => {
     setValue(note.title)
   }, [note, setValue])
-
-  useEffect(() => {
-    updateTitle(title)
-  }, [title, updateTitle])
 
   return <TitleInput {...localTitleBind} />
 }

@@ -33,5 +33,6 @@ const Root = styled('div')`
     color: ${({ theme: { palette } }) => palette.text.primary};
   }
 `
+// ck-color-panel-background
 
 export default App

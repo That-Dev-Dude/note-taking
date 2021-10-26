@@ -24,10 +24,9 @@ export const Note: FC<INote> = ({ title, id, updatedAt, category, content }) => 
           </Grid>
           <Grid item xs={12}>
             <Category>{category}</Category>
-            <Description>
-              {content.substr(0, 40)}
-              {content.length >= 40 ? '..' : ''}
-            </Description>
+            <Description
+              dangerouslySetInnerHTML={{ __html: `${content.substr(0, 40)}${content.length >= 40 ? '..' : ''}` }}
+            />
           </Grid>
         </Grid>
       </Container>
@@ -38,7 +37,8 @@ export const Note: FC<INote> = ({ title, id, updatedAt, category, content }) => 
 const getDate = (stringDate?: string): string => {
   try {
     const date = new Date(stringDate || '')
-    const differenceInMs = diffInMs(new Date(), date)
+    // I never want to show MS, so add 1000 ms to it, so it's always above 1s
+    const differenceInMs = diffInMs(new Date(), date) + 1000
     return convertMsToTime(differenceInMs) || '-'
   } catch (e) {
     return ''
@@ -54,11 +54,11 @@ const Container = styled(Grid, { shouldForwardProp: prop => prop !== 'isActive' 
   ${({ isActive, theme: { palette } }) =>
     isActive
       ? `
-  background-color: ${colors.grey[800]};
-  border-left: 2px solid ${palette.primary.main};
+  background-color: ${palette.mode === 'dark' ? colors.grey[800] : colors.grey[300]};
+  border-left: 4px solid ${palette.primary.main};
   `
       : `
-  border-left: 2px solid transparent;`}
+  border-left: 4px solid transparent;`}
 `
 
 const PostTitle = styled('h3')`
@@ -69,9 +69,20 @@ const Category = styled('p')`
   font-size: 0.9em;
   color: ${({ theme: { palette } }) => palette.primary.main};
 `
-const Description = styled('p')`
-  margin: 0;
+const Description = styled('div')`
   color: ${colors.grey[400]};
   font-size: 0.9em;
-  height: 30px;
+  height: 40px;
+  & p {
+    margin: 0;
+  }
+  & h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+  overflow: hidden;
 `

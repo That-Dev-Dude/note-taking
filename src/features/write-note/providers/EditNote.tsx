@@ -77,7 +77,7 @@ const handleUpdateNote = (
   updateKey: keyof Note,
   newValue: string | string[]
 ) => {
-  console.log('updating', updateKey)
+  console.log('updating ' + updateKey + ' with ID: ' + id + ' for new value: ' + newValue)
   const targetNote = currentNotes[id]
   if (targetNote[updateKey] === newValue) return currentNotes
   const updatedNote = updateNote({ ...targetNote, [updateKey]: newValue })

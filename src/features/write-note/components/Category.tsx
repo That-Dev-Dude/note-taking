@@ -10,15 +10,14 @@ export const NoteCategory: FC = () => {
   const notes = useRecoilValue(notesAtom)
   const { updateCategory, id } = useContext(EditNote)
   const note = notes[id]
-  const [localCategory, localCategoryBind, { setValue }] = useInput(note.category)
+  const {
+    1: localCategoryBind,
+    2: { setValue }
+  } = useInput(note.category, updateCategory)
 
   useEffect(() => {
     setValue(note.category)
   }, [note, setValue])
-
-  useEffect(() => {
-    updateCategory(localCategory)
-  }, [localCategory, updateCategory])
 
   return (
     <div>

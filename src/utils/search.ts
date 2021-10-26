@@ -11,7 +11,7 @@ export const handleSearchResults = function <TData>(
   for (const rawResult of rawResults) {
     const { item, score = 0 } = rawResult
     if (!item) continue
-    if (score > 0.4) continue
+    if (score > 0.8) continue
     results.push(item)
   }
   return results
