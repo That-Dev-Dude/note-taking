@@ -5,7 +5,7 @@ App for taking notes, heavily influenced by [Bear](https://bear.app/).
 ## Demo
 
 - [Screenshots](./screen-shots/README.md)
-- [Live Demo](https://d3jesfpl6tiycw.cloudfront.net/)
+- [Live Demo](https://notes-app.christopher-caldwell.net/)
 
 ## Getting Started
 
