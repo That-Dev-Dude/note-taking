@@ -1,7 +1,9 @@
+import React, { FC, lazy } from 'react'
 import { Grid } from '@mui/material'
-import React, { FC } from 'react'
 
-import { NoteTitle, NoteCategory, DeleteNote, NoteContent } from './components'
+import { NoteTitle, NoteCategory, DeleteNote } from './components'
+
+const NoteContent = lazy(() => import('./components/Content'))
 
 export const WriteNote: FC = () => {
   return (

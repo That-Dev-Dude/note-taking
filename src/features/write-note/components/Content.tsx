@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil'
 import { notesAtom } from '@/store'
 import { EditNote } from '@/features/write-note/providers/EditNote'
 
-export const NoteContent: FC = () => {
+const NoteContent: FC = () => {
   const notes = useRecoilValue(notesAtom)
   const { updateContent, id } = useContext(EditNote)
   const note = notes[id]
@@ -59,3 +59,6 @@ const injectEditorStyle = (backgroundColor: string) => {
 }
 
 const EditorWrapper = styled('div')``
+
+// For lazy loading
+export default NoteContent
